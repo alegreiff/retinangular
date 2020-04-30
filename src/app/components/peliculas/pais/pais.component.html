@@ -1,0 +1,43 @@
+<p>pais works!</p>
+{{ id }}
+
+<p *ngIf="pais">
+    {{ pais | json }}
+</p>
+
+<div *ngIf="peliculas$ | async as filmes" class="lista-filmes">
+    <!-- {{ (peliculas$ | async).length }} -->
+    <div class="scene scene--card" *ngFor="let film of filmes">
+        <div class="card" [ngClass]="{'active': selectedItemId === film.id}" (click)="selectedItemId = film.id">
+            <div class="card__face card__face--front">
+                <nz-card [nzTitle]="film.titulo" [nzExtra]="extraTemplate" >
+                    <img alt="example" [src]="'https://dev.inforetinalatina.org/webposteres/'+ film.id +'.jpg'"
+                        class="posterpaises" />
+                    <p>Card content</p>
+                    <p>Card content</p>
+                </nz-card>
+            </div>
+            <div class="card__face card__face--back">
+                <nz-card [nzTitle]="film.titulo" >
+                    <p> {{ film.genero }} </p>
+                    <p> {{ film.formato }} </p>
+
+                </nz-card>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #extraTemplate>
+        <a>More</a>
+    </ng-template>
+</div>
+
+
+<!-- <div *ngIf="peliculas$ | async as filmes" class="lista-filmes">
+    <div class="scene scene--card" *ngFor="let film of filmes">
+        <div class="card" [ngClass]="{'active': selectedItemId === film.id}" (click)="selectedItemId = film.id">
+          <div class="card__face card__face--front">{{ film.titulo }} </div>
+          <div class="card__face card__face--back">back</div>
+        </div>
+      </div>
+</div> -->

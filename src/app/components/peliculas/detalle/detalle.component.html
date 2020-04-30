@@ -1,0 +1,84 @@
+<div *ngIf="res | async as film">
+    <!-- <h2> {{ film.titulo }} </h2> -->
+    <nz-page-header class="site-page-header" nzBackIcon [nzTitle]="film.titulo" [nzSubtitle]="(film.sumvisitas | number:'':'es') + ' visitas'">
+    </nz-page-header>
+    <nz-tabset>
+        <nz-tab [nzTitle]="segunda" nzActive=true>
+            <ng-template #segunda> <i nz-icon nzType="database" nzTheme="fill"></i>Mes a mes</ng-template>
+            <nz-timeline>
+                <nz-timeline-item *ngFor="let tempo of film.temporadas"> 
+                    <nz-tag [nzColor]="'green'">{{ tempo.entrada }}</nz-tag>  
+                    <nz-tag [nzColor]="'blue'">{{ tempo.diasalaire  | number:'':'es' }} días</nz-tag>  
+                    <nz-tag [nzColor]="'red'" *ngIf="tempo.salida; else PeliActiva">{{ tempo.salida }}</nz-tag>
+                    <ng-template #PeliActiva><nz-tag [nzColor]="'green'">Activa {{ last }} </nz-tag>  </ng-template>
+                </nz-timeline-item>
+                
+              </nz-timeline>
+            <button nz-button nzType="primary" (click)="mes()" nzSize="small" *ngIf="botonactivo=='year'">Ver por mes</button>
+            
+            <button nz-button nzType="primary" (click)="year()" nzSize="small" *ngIf="botonactivo=='mes'">Ver por año</button>
+                <!-- {{ botonactivo }} -->
+                <!-- {{  last  }} -->
+            <div class="grafico">
+                
+
+                <ngx-charts-bar-vertical *ngIf="oficial" [legend]="legend" [scheme]="colorScheme"
+                    [results]="oficial" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                    [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+            <!-- <pre>{{ graficafechasY | json}}</pre> -->
+            <a routerLink="/peliculas">ver todas las películas</a>
+            <pre>
+                {{ (res | async) | json }}
+            </pre>
+            <!-- <pre>
+                
+                {{ (res | async) | json }}
+                {{ code | json }}
+                <hr>
+                
+                
+            </pre> -->
+        </nz-tab>
+        <nz-tab [nzTitle]="primera">
+            <ng-template #primera> <i nz-icon nzType="picture" nzTheme="fill"></i> Datos</ng-template>
+            <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+                <nz-card-meta nzTitle="Europe Street beat" nzDescription="www.instagram.com"></nz-card-meta>
+            </nz-card>
+            <ng-template #coverTemplate>
+                <img alt="example" [src]="'https://dev.inforetinalatina.org/webposteres/'+ film.id +'.jpg'" />
+            </ng-template>
+
+
+        </nz-tab>
+
+        <nz-tab [nzTitle]="tercera">
+            <ng-template #tercera> <i nz-icon nzType="idcard" nzTheme="fill"></i>Stats</ng-template>
+            <nz-row [nzGutter]="16">
+                <nz-col [nzSpan]="12">
+                    <nz-statistic [nzValue]="film.sumvisitas | number" [nzTitle]="'Reproducciones'"></nz-statistic>
+                </nz-col>
+                <nz-col [nzSpan]="12">
+                    <nz-statistic [nzValue]="film.sumdias | number: '1.0-2'" [nzTitle]="'Días al aire'"></nz-statistic>
+                </nz-col>
+            </nz-row>
+        </nz-tab>
+
+
+
+    </nz-tabset>
+
+
+    <!-- <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+            <nz-card-meta nzTitle="Europe Street beat" nzDescription="www.instagram.com"></nz-card-meta>
+        </nz-card>
+        <ng-template #coverTemplate>
+            <img alt="example" [src]="'https://dev.inforetinalatina.org/webposteres/'+ film.id +'.jpg'" />
+        </ng-template> -->
+
+
+
+
+</div>

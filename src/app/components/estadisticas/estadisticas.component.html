@@ -1,0 +1,55 @@
+<p>estadisticas works!</p>
+
+<pre *ngIf="estadistica$">
+    {{ (estadistica$ | async).length  }}
+</pre>
+
+<div class="grafica" *ngIf="muestra">
+<!--     <ngx-charts-bar-vertical-normalized 
+  
+  [scheme]="colorScheme"
+  [results]="datosbase"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [legendTitle]="legendTitle"
+    legendPosition="below"
+  
+  >
+</ngx-charts-bar-vertical-normalized> -->
+
+<!-- {{ datosbase | json }} -->
+    <ngx-charts-bar-vertical-2d
+    [scheme]="colorScheme"
+    [results]="datosbase"
+    [roundDomains]="true"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [legendTitle]="legendTitle"
+    legendPosition="below"
+    barPadding=1
+    groupPadding=2>
+  </ngx-charts-bar-vertical-2d>
+</div>
+  <hr>
+  <hr>
+<button nz-button nzSize="large" nzType="dashed"(click)="datosGrafica('sesiones')">Sesiones</button>
+<button nz-button nzSize="large" nzType="dashed"(click)="datosGrafica('usuarios_wp')">Users WP</button>
+<button nz-button nzSize="large" nzType="dashed"(click)="datosGrafica('kaltura')">Kaltura</button>
+<button nz-button nzSize="large" nzType="dashed"(click)="datosGrafica('duracion_media')">Duración media</button>
+<button nz-button nzSize="large" nzType="dashed"(click)="datosGrafica('visitas_paginas')">Páginas</button>
+<button nz-button nzSize="large" nzType="primary">Primary</button>
+<button nz-button nzSize="large" nzType="default">Default</button>
+<button nz-button nzSize="large" nzType="dashed">Dashed</button>
+Biko es foo

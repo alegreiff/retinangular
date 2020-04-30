@@ -1,0 +1,43 @@
+<div *ngIf="peliculas$ | async as losdatos">
+  
+  <ng-template #BusKA>
+    <div class="esmallinput">
+      <nz-input-group [nzSuffix]="suffixIconSearch" nzSize="small">
+        <input nz-input placeholder="Buscar por título" (keyup)="filtroTitulo($event.target.value)"/>
+      </nz-input-group>
+    </div>
+  </ng-template>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+    <nz-table #nzTable [nzData]="losdatos" nzTableLayout="fixed" nzBordered=true nzPageSize=20 nzPaginationPosition="both"
+    nzSize="small" [nzNoResult]="NoCargas" [nzPageSizeOptions]="[10,20,50,500]" nzShowSizeChanger=true [nzTitle]="BusKA">
+
+    <ng-template #NoCargas>
+      <nz-spin nzSimple nzSize='large'></nz-spin>
+    </ng-template>
+    <thead> 
+      <tr>
+        <th *ngFor="let column of listOfColumns, index as i" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+          [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+          [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn" [nzWidth]="column.ancho">
+          <span class="headertabla">{{ column.name }}</span>
+        </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.id }}</td>
+        <td>{{ data.titulo }}</td>
+        <td>{{ data.year }}</td>
+        <td class="paisnombre">{{ data.pais }}</td>
+        <td nzAlign="right">{{ data.sumdias }}</td>
+        <td nzAlign="right">{{ data.sumvisitas }}</td>
+        <td>  
+          <button nz-button nzType="primary" [routerLink]="['/peliculas', data.id]">Ver</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

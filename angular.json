@@ -25,9 +25,15 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "src/theme.less",
               "src/styles.scss"
             ],
             "scripts": []
@@ -66,7 +72,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "retina:build"
+            "browserTarget": "retina:build",
+            "port": 4001,
+            "host": "0.0.0.0"
           },
           "configurations": {
             "production": {
@@ -123,6 +131,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "retina"
+    }
+  },
+  "defaultProject": "retina",
+  "cli": {
+    "analytics": "6fa1c2ea-44c7-45a0-8551-54ae012d5873"
+  }
 }
