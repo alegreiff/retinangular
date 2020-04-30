@@ -49,6 +49,8 @@ export class PeliculasStore {
 
     private subject = new BehaviorSubject<IFilme[]>([]);
     peliculas$: Observable<IFilme[]> = this.subject.asObservable();
+    private subjectPaises = new BehaviorSubject<IPais[]>([])
+    paises$: Observable<IPais[]> = this.subjectPaises.asObservable();
     private subjectEstadistica = new BehaviorSubject<IEstadistica[]>([]);
     estadistica$: Observable<IEstadistica[]> = this.subjectEstadistica.asObservable();
     private subjectFechas = new BehaviorSubject<IFecha[]>([])
@@ -56,7 +58,16 @@ export class PeliculasStore {
 
 
     private apiserver: string = 'http://js.presencia.co/';
-
+    
+    private cargaAllPaises() {
+        const cargaPaises$ = this.http.get<IPais[]>(`${this.apiserver}paises`)
+        .pipe(
+            map( datos => datos),
+            tap(paises => this.subjectPaises.next(paises))
+        );
+        this.loading.showLoaderUntilCompleted(cargaPaises$)
+        .subscribe()
+    }
     private cargaAllPeliculas() {
 
         const cargaPeliculas$ = this.http.get<IFilme[]>(`${this.apiserver}peliculas`)
@@ -77,6 +88,7 @@ export class PeliculasStore {
         this.cargaAllPeliculas();
         this.cargaEstadisticas();
         this.cargaFechas();
+        this.cargaAllPaises();
     }
     private cargaEstadisticas() {
 

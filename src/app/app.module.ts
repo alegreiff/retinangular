@@ -28,6 +28,8 @@ import { AngularFireModule}  from '@angular/fire'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginComponent } from './shared/login/login.component';
+import { GoogleChartsModule } from 'angular-google-charts';
+
 
 
 
@@ -46,7 +48,9 @@ import { LoginComponent } from './shared/login/login.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule, PeliculasModule, ZorroModule, NgxChartsModule, EstadisticasModule, CalendarioModule, 
-    AngularFirestoreModule, AngularFireModule.initializeApp(environment.configFirebase), AngularFireAuthModule
+    AngularFirestoreModule, AngularFireModule.initializeApp(environment.configFirebase), AngularFireAuthModule,
+    GoogleChartsModule.forRoot(),
+
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }, LoadingService],
   bootstrap: [AppComponent],
